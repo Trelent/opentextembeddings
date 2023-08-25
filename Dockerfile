@@ -1,5 +1,5 @@
 FROM python:3.11
-LABEL Name=gpteam-embeddings
+LABEL Name=opentextembeddings
 LABEL Version=0.0.1
 LABEL maintainer="Trelent Inc."
 
