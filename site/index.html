@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Text Embeddings</title>
+  </head>
+  <body>
+    <style>
+      body {
+        font-family: sans-serif;
+      }
+      h1,
+      h2,
+      h3,
+      h4 {
+        font-family: serif;
+      }
+      table {
+        border-collapse: collapse;
+      }
+      td,
+      th {
+        border: 1px solid #ddd;
+        text-align: left;
+        padding: 8px;
+      }
+    </style>
+    <div style="max-width: 64em; margin: 5em auto; padding: 1em">
+      <header>
+        <h1>Open-source Text Embeddings</h1>
+        <h4>
+          We made a free OpenAI-like API so you can instantly use better,
+          open-source text embedding models.
+        </h4>
+        <p>
+          <code style="display: block">
+            openai.api_base = "https://api.textembeddings.com/v1/"
+          </code>
+        </p>
+      </header>
+      <section>
+        <table style="border: 1px solid gray; width: 100%">
+          <thead>
+            <tr>
+              <th>
+                <h3>Model</h3>
+              </th>
+              <th>
+                <h3>
+                  <a href="https://huggingface.co/spaces/mteb/leaderboard"
+                    >MTEB Score</a
+                  >
+                </h3>
+              </th>
+              <th>
+                <h3>Dimensions</h3>
+              </th>
+              <th>
+                <h3>Seq Length</h3>
+              </th>
+              <th>
+                <h3>Cost per 10M tokens</h3>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="background-color: rgba(223, 255, 212, 0.565)">
+              <td>bge-large-en</td>
+              <td>63.98%</td>
+              <td>1024</td>
+              <td>512</td>
+              <td>$0</td>
+            </tr>
+            <tr style="background-color: rgba(223, 255, 212, 0.565)">
+              <td>bge-base-en</td>
+              <td>63.36%</td>
+              <td>768</td>
+              <td>512</td>
+              <td>$0</td>
+            </tr>
+            <tr style="background-color: rgba(223, 255, 212, 0.565)">
+              <td>gte-large</td>
+              <td>63.13%</td>
+              <td>1024</td>
+              <td>512</td>
+              <td>$0</td>
+            </tr>
+            <tr style="background-color: rgba(223, 255, 212, 0.565)">
+              <td>gte-base</td>
+              <td>62.39%</td>
+              <td>768</td>
+              <td>512</td>
+              <td>$0</td>
+            </tr>
+            <tr style="background-color: rgba(255, 212, 212, 0.565)">
+              <td>text-embedding-ada-002</td>
+              <td>60.99%</td>
+              <td>1536</td>
+              <td>8192</td>
+              <td>$1</td>
+            </tr>
+          </tbody>
+        </table>
+        <h3>Legend</h3>
+        <p>
+          <strong>Model</strong> is the name of the model to use in the API. If
+          it has a red background, we do not support it.
+        </p>
+        <p>
+          <strong>MTEB Score</strong> is the Massive Text Embedding Benchmark
+          score. It is the average of the 10 downstream tasks in the Text
+          Embedding Benchmark.
+        </p>
+        <p>
+          <strong>Dimensions</strong> is the number of dimensions of the
+          embedding vectors. Lower is better, as it is cheaper to store in a
+          vector DB.
+        </p>
+        <p>
+          <strong>Seq Length</strong> is the maximum number of tokens in a
+          sequence. Typically anything above 256 is enough for most use cases,
+          as most embedding models perform poorly with large chunks of text.
+        </p>
+        <p><strong>Cost</strong> is the cost per 10M tokens.</p>
+      </section>
+      <section>
+        <h3>Limitations</h3>
+        <p>
+          To keep this API free and available to as many people as possible, you
+          may only make: 1,000 requests per hour. If this is insufficient for
+          your needs, feel free to self-host on your own infrastructure. We
+          recommend at least 4 CPU cores and 16GB of RAM. A GPU is not required,
+          but will speed up requests.
+        </p>
+      </section>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "gpteam-embeddings"
+version = "0.0.1"
+description = "API for serving open-source embedding models"
+authors = ["Trelent Inc. <contact@trelent.net>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+redis = "^5.0.0"
+fastapi = "^0.101.1"
+uvicorn = "^0.23.2"
+pydantic = "^2.2.1"
+huggingface = "^0.0.1"
+sentence-transformers = "^2.2.2"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
