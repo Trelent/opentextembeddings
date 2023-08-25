@@ -1,10 +1,6 @@
 # Open-source Text Embeddings
 
-#### We made a free OpenAI-like API so you can instantly use better, open-source text embedding models.
-
-###### Like the models this API is built upon, the API is open-source [on GitHub](https://github.com/trelent/opentextembeddings) under an MIT license.
-
-`openai.api_base = "https://api.textembeddings.com/v1/"`
+We made a free OpenAI-like API so you can instantly use better, open-source text embedding models.
 
 | Model                  | MTEB Score | Dimensions | Seq Length | Cost per 10M tokens |
 | ---------------------- | ---------- | ---------- | ---------- | ------------------- |
