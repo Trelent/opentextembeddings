@@ -1,5 +1,13 @@
+import time
+from dotenv import load_dotenv
 from fastapi import FastAPI, Request, Response
 from fastapi.responses import JSONResponse
+import os
+import redis
+
+from .db import test_connection, track_total_tokens
+from .embed import allowed_models, get_text_embedding, get_tokenized_inputs
+from .limit import RedisRateLimiter
 from .model import (
     Embedding,
     EmbeddingException,
@@ -7,10 +15,30 @@ from .model import (
     EmbeddingResponse,
     Usage,
 )
-from .embed import allowed_models, get_text_embedding, get_tokenized_inputs
+
+load_dotenv()
+REDIS_HOST = os.getenv("REDIS_HOST")
+REDIS_USER = os.getenv("REDIS_USER")
+REDIS_PASSWORD = os.getenv("REDIS_PASSWORD")
+REDIS_PORT = os.getenv("REDIS_PORT")
+REDIS_INSTANCE = redis.Redis(
+    host=REDIS_HOST,
+    username=REDIS_USER,
+    password=REDIS_PASSWORD,
+    port=REDIS_PORT,
+    ssl=True,
+)
+VERSION = "0.0.1"
+
+if not test_connection(REDIS_INSTANCE):
+    raise Exception("Redis connection failed.")
+else:
+    print("Redis connection successful.")
 
 app = FastAPI()
-version = "0.0.1"
+# app.add_middleware(
+#    RedisRateLimiter, max_requests=100, time_window=3600, redis_instance=REDIS_INSTANCE
+# )
 
 
 @app.exception_handler(EmbeddingException)
@@ -21,7 +49,23 @@ async def exception_handler(request: Request, exc: EmbeddingException):
 @app.get("/")
 @app.get("/v1")
 async def main_route():
-    return {"version": version}
+    # return {"version": VERSION}
+    # Return empty html page to prevent 404
+    return Response(
+        content="""
+                    <html>
+                        <head>
+                            <meta name="loadforge-site-verification" content="90d744ffc2b8a6e92c67b11d3a445ac63353ed2c055ef97b9b1b4a1751aeb2fdc8c833b1708fc834c8c6db26adad6601bf34b31532300db9421b4cd0b4330a9f" />
+                        </head>
+                        <body>
+                            <h1>Version: """
+        + VERSION
+        + """</h1>
+                        </body>
+                    </html>
+                    """,
+        media_type="text/html",
+    )
 
 
 @app.post("/v1/embeddings")
@@ -40,17 +84,24 @@ async def embeddings(request: EmbeddingRequest) -> EmbeddingResponse:
     input = input if isinstance(input, list) else [input]
 
     # Get the token count for each input
+    tokenize_start = time.time()
     total_tokens = get_tokenized_inputs(model, input)
+    track_total_tokens(REDIS_INSTANCE, total_tokens)
+    tokenize_end = time.time()
 
     # TODO: We could auto-chunk inputs into 512-token chunks here, but maybe this is just an extra option for future?
 
     # Get the embeddings for each input and build our response
+    embedding_start = time.time()
     embeddings = get_text_embedding(model, input)
     embedding_list = [
         Embedding(object="embedding", embedding=embedding, index=index)
         for index, embedding in enumerate(embeddings)
     ]
-    print(embedding_list)
+    embedding_end = time.time()
+
+    print(f"Tokenize time: {tokenize_end - tokenize_start}")
+    print(f"Embedding time: {embedding_end - embedding_start}")
 
     return EmbeddingResponse(
         object="list",

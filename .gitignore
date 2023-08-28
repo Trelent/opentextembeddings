@@ -1,3 +1,11 @@
+# Editor config
 .vscode/
+
+# Byte-compiled / optimized / DLL files
 __pycache__/
 .DS_Store
+
+# local env files
+.env
+.env.*
+.*.env

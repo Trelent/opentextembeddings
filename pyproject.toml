@@ -6,14 +6,19 @@ authors = ["Trelent Inc. <contact@trelent.net>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "^3.11"
+python = "^3.11 < 3.12"
 redis = "^5.0.0"
 fastapi = "^0.101.1"
 uvicorn = "^0.23.2"
 pydantic = "^2.2.1"
 huggingface = "^0.0.1"
+fast-sentence-transformers = "^0.4.1"
+python-dotenv = "^1.0.0"
 sentence-transformers = "^2.2.2"
 
+
+[tool.poetry.group.dev.dependencies]
+openai = "^0.27.9"
 
 [build-system]
 requires = ["poetry-core"]
