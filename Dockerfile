@@ -20,7 +20,7 @@ RUN poetry config virtualenvs.create false \
     && poetry install --no-interaction --no-ansi
 
 # Copy the source code
-COPY ./src ./src
+COPY . /app
 WORKDIR /app
 
 # Run the application
