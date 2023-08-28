@@ -1,5 +1,5 @@
-from sentence_transformers import SentenceTransformer
 from fast_sentence_transformers import FastSentenceTransformer
+from sentence_transformers import SentenceTransformer
 
 print("Loading models...")
 
