@@ -21,19 +21,19 @@ REDIS_HOST = os.getenv("REDIS_HOST")
 REDIS_USER = os.getenv("REDIS_USER")
 REDIS_PASSWORD = os.getenv("REDIS_PASSWORD")
 REDIS_PORT = os.getenv("REDIS_PORT")
-REDIS_INSTANCE = redis.Redis(
-    host=REDIS_HOST,
-    username=REDIS_USER,
-    password=REDIS_PASSWORD,
-    port=REDIS_PORT,
-    ssl=True,
-)
+# REDIS_INSTANCE = redis.Redis(
+#    host=REDIS_HOST,
+#    username=REDIS_USER,
+#    password=REDIS_PASSWORD,
+#    port=REDIS_PORT,
+#    ssl=True,
+# )
 VERSION = "0.0.1"
 
-if not test_connection(REDIS_INSTANCE):
-    raise Exception("Redis connection failed.")
-else:
-    print("Redis connection successful.")
+# if not test_connection(REDIS_INSTANCE):
+#    raise Exception("Redis connection failed.")
+# else:
+#    print("Redis connection successful.")
 
 app = FastAPI()
 # app.add_middleware(
@@ -86,7 +86,7 @@ async def embeddings(request: EmbeddingRequest) -> EmbeddingResponse:
     # Get the token count for each input
     tokenize_start = time.time()
     total_tokens = get_tokenized_inputs(model, input)
-    track_total_tokens(REDIS_INSTANCE, total_tokens)
+    # track_total_tokens(REDIS_INSTANCE, total_tokens)
     tokenize_end = time.time()
 
     # TODO: We could auto-chunk inputs into 512-token chunks here, but maybe this is just an extra option for future?
