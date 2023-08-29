@@ -46,7 +46,7 @@
       <section>
         <h2>Usage</h2>
         <p>
-          Integration is as= easy as changing the OpenAI base URL. Here are some
+          Integration is as easy as changing the OpenAI base URL. Here are some
           examples:
         </p>
         <pre><code class="language-python">
@@ -57,6 +57,16 @@ openai.Embedding.create(
   input="Hey, is this API working?"
 )
         </code></pre>
+        <pre><code class="language-python">
+# Langchain
+from langchain.embeddings import OpenAIEmbeddings
+
+embeddings_model = OpenAIEmbeddings(openai_api_base="https://api.opentextembeddings.com/v1", model="bge-large-en")
+embeddings = embeddings_model.embed_documents([
+  "I think it is!",
+  "Sweet, I love better embeddings!"
+])
+        </code></pre>
         <pre><code class="language-javascript">
 // JavaScript SDK
 const openai = new OpenAI({
@@ -65,7 +75,7 @@ const openai = new OpenAI({
 
 const embedding = await openai.embeddings.create({
   model: "bge-base-en",
-  input: "I think it is!",
+  input: "Yeah, it's so easy to use!",
 });
         </code></pre>
         <pre><code class="language-bash">
@@ -73,7 +83,7 @@ const embedding = await openai.embeddings.create({
 curl https://api.opentextembeddings.com/v1/embeddings \
     -H "Content-Type: application/json" \
     -d '{
-        "input": "Sweet, I love better embeddings!",
+        "input": "I know. I'm sharing this with everyone I know!",
         "model": "gte-large"
     }'
         </code></pre>
