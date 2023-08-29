@@ -49,23 +49,23 @@ async def exception_handler(request: Request, exc: EmbeddingException):
 @app.get("/")
 @app.get("/v1")
 async def main_route():
-    # return {"version": VERSION}
+    return {"version": VERSION}
     # Return empty html page to prevent 404
-    return Response(
-        content="""
-                    <html>
-                        <head>
-                            <meta name="loadforge-site-verification" content="90d744ffc2b8a6e92c67b11d3a445ac63353ed2c055ef97b9b1b4a1751aeb2fdc8c833b1708fc834c8c6db26adad6601bf34b31532300db9421b4cd0b4330a9f" />
-                        </head>
-                        <body>
-                            <h1>Version: """
-        + VERSION
-        + """</h1>
-                        </body>
-                    </html>
-                    """,
-        media_type="text/html",
-    )
+    # return Response(
+    #    content="""
+    #                <html>
+    #                    <head>
+    #                        <meta name="loadforge-site-verification" content="90d744ffc2b8a6e92c67b11d3a445ac63353ed2c055ef97b9b1b4a1751aeb2fdc8c833b1708fc834c8c6db26adad6601bf34b31532300db9421b4cd0b4330a9f" />
+    #                    </head>
+    #                    <body>
+    #                        <h1>Version: """
+    #    + VERSION
+    #    + """</h1>
+    #                    </body>
+    #                </html>
+    #                """,
+    #    media_type="text/html",
+    # )
 
 
 @app.post("/v1/embeddings")
