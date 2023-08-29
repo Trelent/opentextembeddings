@@ -8,7 +8,7 @@ RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
 ENV PATH="/root/.cargo/bin:${PATH}"
 
 # Install sentence-transformers
-RUN pip install fast-sentence-transformers poetry
+RUN pip install fast-sentence-transformers[gpu] poetry
 
 # Load the models
 COPY ./scripts/load_models.py /app/scripts/load_models.py
