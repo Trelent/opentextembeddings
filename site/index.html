@@ -12,6 +12,11 @@
   </head>
   <body>
     <style>
+      html {
+        background-color: #fff;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
       body {
         font-family: sans-serif;
       }
@@ -23,13 +28,37 @@
       }
       table {
         border-collapse: collapse;
+        border: 1px solid gray;
       }
       td,
       th {
-        border: 1px solid #ddd;
+        border: 1px solid #eee;
         padding: 8px;
         text-align: left;
         white-space: nowrap;
+      }
+
+      @media (prefers-color-scheme: dark) {
+        a {
+          color: #eee;
+        }
+        a:visited {
+          color: #aaa;
+        }
+        html {
+          background-color: #222;
+          color: #eee;
+        }
+        td,
+        th {
+          border-color: #555;
+        }
+        td {
+          color: #000;
+        }
+        th {
+          color: #eee;
+        }
       }
     </style>
     <div style="max-width: 48em; margin: auto; padding: 1em">
@@ -61,7 +90,10 @@ openai.Embedding.create(
 # Langchain
 from langchain.embeddings import OpenAIEmbeddings
 
-embeddings_model = OpenAIEmbeddings(openai_api_base="https://api.opentextembeddings.com/v1", model="bge-large-en")
+embeddings_model = OpenAIEmbeddings(
+  openai_api_base="https://api.opentextembeddings.com/v1",
+  model="bge-large-en"
+)
 embeddings = embeddings_model.embed_documents([
   "I think it is!",
   "Sweet, I love better embeddings!"
@@ -91,7 +123,7 @@ curl https://api.opentextembeddings.com/v1/embeddings \
       <section>
         <h2>Supported model info</h2>
         <div style="overflow-x: auto">
-          <table style="border: 1px solid gray; min-width: 100%">
+          <table style="min-width: 100%">
             <thead>
               <tr>
                 <th>
